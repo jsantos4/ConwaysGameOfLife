@@ -29,22 +29,30 @@ class Map {
 		cells[x][y] |= 1;
 
 		//Increment all neighboring cells neighbor counter if neighbor exists
-		if (x < width)
-			cells[x + 1][y] += 2;
-		if (x > 0)
-			cells[x - 1][y] += 2;
+			//Check up-center and down-center for boundaries
 		if (y < height)
 			cells[x][y + 1] += 2;
 		if (y > 0)
 			cells[x][y - 1] += 2;
-		if (x < width && y < height)
-			cells[x + 1][y + 1] += 2;
-		if (x < width && y > 0)
-			cells[x + 1][y - 1] += 2;
-		if (x > 0 && y < height)
-			cells[x - 1][y + 1] += 2;
-		if (x > 0 && y > 0)
-			cells[x - 1][y - 1] += 2;
+			
+			//Check  left and right columns for boundaries
+		if (x < width){
+			cells[x + 1][y] += 2;
+			
+			if (y < height)
+				cells[x + 1][y + 1] += 2;
+			if (y > 0)
+				cells[x + 1][y - 1] += 2;
+		}
+
+		if (x > 0) {
+			cells[x - 1][y] += 2;
+
+			if (y < height)
+				cells[x - 1][y + 1] += 2;
+			if (y > 0)
+				cells[x - 1][y - 1] += 2;
+		}
 	}
 
 
@@ -52,23 +60,31 @@ class Map {
 
 		cells[x][y] &= ~1;
 
-		//Increment all neighboring cells neighbor counter if neighbor exists
-		if (x < width)
-			cells[x + 1][y] -= 2;
-		if (x > 0)
-			cells[x - 1][y] -= 2;
+		//Decriment all neighboring cells neighbor counter if neighbor exists
+			//Check up-center and down-center for boundaries
 		if (y < height)
 			cells[x][y + 1] -= 2;
 		if (y > 0)
 			cells[x][y - 1] -= 2;
-		if (x < width && y < height)
-			cells[x + 1][y + 1] -= 2;
-		if (x < width && y > 0)
-			cells[x + 1][y - 1] -= 2;
-		if (x > 0 && y < height)
-			cells[x - 1][y + 1] -= 2;
-		if (x > 0 && y > 0)
-			cells[x - 1][y - 1] -= 2;
+			
+			//Check  left and right columns for boundaries
+		if (x < width){
+			cells[x + 1][y] -= 2;
+			
+			if (y < height)
+				cells[x + 1][y + 1] -= 2;
+			if (y > 0)
+				cells[x + 1][y - 1] -= 2;
+		}
+
+		if (x > 0) {
+			cells[x - 1][y] -= 2;
+
+			if (y < height)
+				cells[x - 1][y + 1] -= 2;
+			if (y > 0)
+				cells[x - 1][y - 1] -= 2;
+		}
 	}
 
 	unsigned char Map::getCell(int x, int y) {
