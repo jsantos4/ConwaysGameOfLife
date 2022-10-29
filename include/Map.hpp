@@ -4,13 +4,15 @@
 class Map {
 	private:
 		int width, height;
-		unsigned char** cells;
+		unsigned char** currentGen;
 	public:
 		Map(int width, int height);
 		~Map();
 		void birthCell(int x, int y);
 		void killCell(int x, int y);
-		unsigned char getCell(int x, int y);
+		bool getCell(int x, int y);
+		void printMap(bool state);
+		Map advanceGeneration();
 };
 
 #endif
