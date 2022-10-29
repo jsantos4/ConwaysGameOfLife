@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 int width, height;
-unsigned char** currentGen;
+unsigned char **currentGen, **lastGen;
 
 Map::Map(int w, int h) {
 	width = w;
@@ -93,26 +93,25 @@ bool Map::getCell(int x, int y) {
 void Map::printMap(bool state) {
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++)
-			state ? printf("%d ", this->getCell(i, j)) : printf("%u ", currentGen[i][j]);
+			state ? printf("%d ", getCell(i, j)) : printf("%d ", currentGen[i][j]);
 		printf("\n");
 	}
 	printf("\n\n");
 }
 
-Map Map::advanceGeneration() {
-	Map nextGen(width, height);
+void Map::advanceGeneration() {
+	lastGen = currentGen;
+	unsigned int neighborCount;
 
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			if (currentGen[i][j] % 2 != 0) {
-				if ((currentGen[i][j] >> 1) < 2 || (currentGen[i][j] >> 1) > 3)
-					nextGen.killCell(i, j);			
+			if (lastGen[i][j] % 2 != 0) {
+				if ((lastGen[i][j] >> 1) < 2 || (lastGen[i][j] >> 1) > 3)
+					killCell(i, j);			
 			} else {
-				if ((currentGen[i][j] >> 1) == 2 || (currentGen[i][j] >> 1) == 3)
-					nextGen.birthCell(i, j);		
+				if ((lastGen[i][j] >> 1) == 2 || (lastGen[i][j] >> 1) == 3)
+					birthCell(i, j);		
 			}
 		}
 	}
-
-	return nextGen;
 }

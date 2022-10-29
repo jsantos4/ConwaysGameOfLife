@@ -4,7 +4,7 @@
 class Map {
 	private:
 		int width, height;
-		unsigned char** currentGen;
+		unsigned char **currentGen, **lastGen;
 	public:
 		Map(int width, int height);
 		~Map();
@@ -12,7 +12,7 @@ class Map {
 		void killCell(int x, int y);
 		bool getCell(int x, int y);
 		void printMap(bool state);
-		Map advanceGeneration();
+		void advanceGeneration();
 };
 
 #endif
