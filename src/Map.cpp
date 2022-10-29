@@ -96,7 +96,11 @@ void Map::printMap(bool state) {
 }
 
 void Map::advanceGeneration() {
-	lastGen = currentGen;
+	lastGen = new unsigned char*[width];
+	for (int x = 0; x < width; x++) {
+		lastGen[x] = new unsigned char;
+		memcpy(lastGen[x], currentGen[x], height);
+	}
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 			if (lastGen[i][j] % 2 != 0) {
