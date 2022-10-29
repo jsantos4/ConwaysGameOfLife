@@ -10,7 +10,6 @@ class Map {
 		~Map();
 		void birthCell(int x, int y);
 		void killCell(int x, int y);
-		bool getCell(int x, int y);
 		void printMap(bool state);
 		void advanceGeneration();
 };
